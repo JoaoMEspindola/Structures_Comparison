@@ -1,11 +1,11 @@
-#include "rb.h"
+#include "RedBlack.hpp"
 
-Tree* CreateTree(){
+RBTree* CreateRBTree(){
   return NULL;
 }
 
-void insertFixUp(Tree **raiz, Tree *child){
-  Tree *tio;
+void insertFixUp(RBTree **raiz, RBTree *child){
+  RBTree *tio;
 
   while((child != *raiz) && (child->pai->cor == false)){
       
@@ -67,10 +67,10 @@ void insertFixUp(Tree **raiz, Tree *child){
 }
 
 
-void insertTree(Tree **t, Tree **pai, Tree **raiz, Record r){
+void insertRBTree(RBTree **t, RBTree **pai, RBTree **raiz, RBRecord r){
   
   if(*t == NULL){
-    *t = (Tree*)malloc(sizeof(Tree));
+    *t = (RBTree*)malloc(sizeof(RBTree));
     (*t)->esq = NULL; 
     (*t)->dir = NULL; 
     (*t)->pai = pai!=t?*pai:NULL;
@@ -81,12 +81,12 @@ void insertTree(Tree **t, Tree **pai, Tree **raiz, Record r){
   } else { 
 
     if(r.key < (*t)->reg.key){
-      insertTree(&(*t)->esq, t, raiz, r);
+      insertRBTree(&(*t)->esq, t, raiz, r);
       return;
     }
     
     if(r.key > (*t)->reg.key){
-      insertTree(&(*t)->dir, t, raiz, r);
+      insertRBTree(&(*t)->dir, t, raiz, r);
       return;
     }
 
@@ -95,7 +95,7 @@ void insertTree(Tree **t, Tree **pai, Tree **raiz, Record r){
 }
 
 
-void pesquisa(Tree **t, Tree **aux, Record r){
+void pesquisa(RBTree **t, RBTree **aux, RBRecord r){
 
   if(*t == NULL){
     printf("[ERROR]: Node not found!");
@@ -108,8 +108,8 @@ void pesquisa(Tree **t, Tree **aux, Record r){
   *aux = *t;
 }
 
-void rotacaoSimplesEsquerda(Tree **raiz, Tree *child){
-  Tree *x, *y;
+void rotacaoSimplesEsquerda(RBTree **raiz, RBTree *child){
+  RBTree *x, *y;
 
   x = child;
   y = child->dir;
@@ -138,8 +138,8 @@ void rotacaoSimplesEsquerda(Tree **raiz, Tree *child){
 }
 
 
-void rotacaoSimplesDireita(Tree **raiz, Tree *child){
-  Tree *x, *y;
+void rotacaoSimplesDireita(RBTree **raiz, RBTree *child){
+  RBTree *x, *y;
 
   x = child;
   y = child->esq;
@@ -170,7 +170,7 @@ void rotacaoSimplesDireita(Tree **raiz, Tree *child){
 }
 
 
-void preordem(Tree *t){
+void preordem(RBTree *t){
   if(!(t == NULL)){
     printf("%d - %s\t", t->reg.key, t->cor ? "black" : "red");
     preordem(t->esq); 
@@ -179,7 +179,7 @@ void preordem(Tree *t){
 }
 
 
-void central(Tree *t){
+void central(RBTree *t){
   if(!(t == NULL)){
     central(t->esq); 
     printf("%d - %s\t", t->reg.key, t->cor ? "black" : "red");
@@ -187,7 +187,7 @@ void central(Tree *t){
   }
 }
 
-void posordem(Tree *t){
+void posordem(RBTree *t){
   if(!(t == NULL)){
     posordem(t->esq); 
     posordem(t->dir); 

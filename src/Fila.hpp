@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include "tree.h"
+#include "Binary.hpp"
 
 typedef struct Item Item;
 typedef struct Block Block;

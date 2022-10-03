@@ -4,43 +4,43 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-typedef struct Record Record;
-typedef struct Tree Tree;
+typedef struct AVLRecord AVLRecord;
+typedef struct AVLTree AVLTree;
 
-struct Record{
+struct AVLRecord{
 	int key;
 	int value;
 };
 
-struct Tree{
-	Record reg;
-	Tree *left, *right;
+struct AVLTree{
+	AVLRecord reg;
+	AVLTree *left, *right;
 	int weight;
 };
 
-Tree* CreateTree();
-void insertTree(Tree **t, Record r);
-void pesquisa(Tree **t, Tree **aux, Record r);
-int isInTree(Tree *t, Record r);
+AVLTree* CreateAVLTree();
+void insertAVLTree(AVLTree **t, AVLRecord r);
+void pesquisa(AVLTree **t, AVLTree **aux, AVLRecord r);
+int isInAVLTree(AVLTree *t, AVLRecord r);
 
 //muda o remove devido a necessidade de ponteiro para sub-árvore desbalanceada
-void removeTree(Tree **t, Tree **f, Record r);
-void antecessor(Tree **t, Tree *aux);
-void rebalanceTree(Tree **t);
+void removeAVLTree(AVLTree **t, AVLTree **f, AVLRecord r);
+void antecessor(AVLTree **t, AVLTree *aux);
+void rebalanceAVLTree(AVLTree **t);
 
-void preordem(Tree *t);
-void central(Tree *t);
-void posordem(Tree *t);
+void preordem(AVLTree *t);
+void central(AVLTree *t);
+void posordem(AVLTree *t);
 
 
-int getWeight(Tree **t);
+int getWeight(AVLTree **t);
 int getMaxWeight(int left, int right);
 
 
-void rotacaoSimplesDireita(Tree **t);
-void rotacaoSimplesEsquerda(Tree **t);
-void rotacaoDuplaDireita(Tree **t);
-void rotacaoDuplaEsquerda(Tree **t);
+void rotacaoSimplesDireita(AVLTree **t);
+void rotacaoSimplesEsquerda(AVLTree **t);
+void rotacaoDuplaDireita(AVLTree **t);
+void rotacaoDuplaEsquerda(AVLTree **t);
 
 
 #endif

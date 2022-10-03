@@ -1,13 +1,13 @@
-#include "avl.h"
+#include "Avl.hpp"
 
-Tree* CreateTree(){
+AVLTree* CreateAVLTree(){
 	return NULL;
 }
 
-void insertTree(Tree **t, Record r){
+void insertAVLTree(AVLTree **t, AVLRecord r){
 
   if(*t == NULL){
-    *t = (Tree*)malloc(sizeof(Tree));
+    *t = (AVLTree*)malloc(sizeof(AVLTree));
     (*t)->left   = NULL; 
     (*t)->right  = NULL; 
     (*t)->weight = 0;
@@ -16,7 +16,7 @@ void insertTree(Tree **t, Record r){
   } else {
     
     if(r.key < (*t)->reg.key){
-      insertTree(&(*t)->left, r);
+      insertAVLTree(&(*t)->left, r);
       if ((getWeight(&(*t)->left) - getWeight(&(*t)->right)) == 2){
       	if(r.key < (*t)->left->reg.key)
       		rotacaoSimplesDireita(t);
@@ -26,7 +26,7 @@ void insertTree(Tree **t, Record r){
     }
     
     if(r.key > (*t)->reg.key){
-      insertTree(&(*t)->right, r);
+      insertAVLTree(&(*t)->right, r);
       if ((getWeight(&(*t)->right) - getWeight(&(*t)->left)) == 2){
       	if(r.key > (*t)->right->reg.key)
       		rotacaoSimplesEsquerda(t);
@@ -41,7 +41,7 @@ void insertTree(Tree **t, Record r){
 }
 
 
-void pesquisa(Tree **t, Tree **aux, Record r){
+void pesquisa(AVLTree **t, AVLTree **aux, AVLRecord r){
 
 	if(*t == NULL){
 		printf("[ERROR]: Node not found!");
@@ -54,17 +54,17 @@ void pesquisa(Tree **t, Tree **aux, Record r){
 	*aux = *t;
 }
 
-int isInTree(Tree *t, Record r){
+int isInAVLTree(AVLTree *t, AVLRecord r){
   
   if(t == NULL){ 
     return 0;
   }
   
-  return t->reg.key == r.key || isInTree(t->left, r) || isInTree(t->right, r);
+  return t->reg.key == r.key || isInAVLTree(t->left, r) || isInAVLTree(t->right, r);
 }
 
 
-void antecessor(Tree **t, Tree *aux){ 
+void antecessor(AVLTree **t, AVLTree *aux){ 
 
 	if ((*t)->right != NULL){ 
 		antecessor(&(*t)->right, aux);
@@ -77,7 +77,7 @@ void antecessor(Tree **t, Tree *aux){
   	free(aux);
 } 
 
-void rebalanceTree(Tree **t){
+void rebalanceAVLTree(AVLTree **t){
 	int balance;
   	int left = 0;
   	int right = 0;
@@ -100,41 +100,41 @@ void rebalanceTree(Tree **t){
 
 }
 
-void removeTree(Tree **t, Tree **f, Record r){
-	Tree *aux;
+void removeAVLTree(AVLTree **t, AVLTree **f, AVLRecord r){
+	AVLTree *aux;
   	
   	if (*t == NULL){ 
-  		printf("[ERROR]: Record not found!!!\n");
+  		printf("[ERROR]: AVLRecord not found!!!\n");
     	return;
   	}
 
-  	if (r.key < (*t)->reg.key){ removeTree(&(*t)->left, t, r); return;}
-  	if (r.key > (*t)->reg.key){ removeTree(&(*t)->right, t, r); return;}
+  	if (r.key < (*t)->reg.key){ removeAVLTree(&(*t)->left, t, r); return;}
+  	if (r.key > (*t)->reg.key){ removeAVLTree(&(*t)->right, t, r); return;}
 
   	if ((*t)->right == NULL){ 
   		aux = *t;  
   		*t = (*t)->left;
     	free(aux);
-    	rebalanceTree(f);
+    	rebalanceAVLTree(f);
     	return;
   	}
 
   	if ((*t)->left != NULL){ 
   		antecessor(&(*t)->left, *t);
-  		rebalanceTree(t);
-  		rebalanceTree(f);
+  		rebalanceAVLTree(t);
+  		rebalanceAVLTree(f);
   		return;
   	}
 
   	aux = *t;  
   	*t = (*t)->right;
   	free(aux);
-  	rebalanceTree(t);
-  	rebalanceTree(f); 	
+  	rebalanceAVLTree(t);
+  	rebalanceAVLTree(f); 	
   	
 }
 
-int getWeight(Tree **t){
+int getWeight(AVLTree **t){
 	if(*t == NULL)
 		return -1;
 	return (*t)->weight;
@@ -146,8 +146,8 @@ int getMaxWeight(int left, int right){
 	return right;
 }
 
-void rotacaoSimplesDireita(Tree **t){
-	Tree *aux;
+void rotacaoSimplesDireita(AVLTree **t){
+	AVLTree *aux;
 	aux = (*t)->left;
 	(*t)->left = aux->right;
 	aux->right = (*t);
@@ -156,8 +156,8 @@ void rotacaoSimplesDireita(Tree **t){
 	(*t) = aux;
 }
 
-void rotacaoSimplesEsquerda(Tree **t){
-	Tree *aux;
+void rotacaoSimplesEsquerda(AVLTree **t){
+	AVLTree *aux;
 	aux = (*t)->right;
 	(*t)->right = aux->left;
 	aux->left = (*t);
@@ -166,12 +166,12 @@ void rotacaoSimplesEsquerda(Tree **t){
 	(*t) = aux;
 }
 
-void rotacaoDuplaDireita(Tree **t){
+void rotacaoDuplaDireita(AVLTree **t){
 	rotacaoSimplesEsquerda(&(*t)->left);
 	rotacaoSimplesDireita(t);
 }
 
-void rotacaoDuplaEsquerda(Tree **t){
+void rotacaoDuplaEsquerda(AVLTree **t){
 	rotacaoSimplesDireita(&(*t)->right);
 	rotacaoSimplesEsquerda(t);
 }
