@@ -61,13 +61,11 @@ int main(){
     }
 
     char escolhaEstrutura;
-    
-    cout << "Escolha a estrutura de dados desejada: " << endl;
-    cout << "a)Árvore AVL" << endl << "b)Árvore Binária" << endl << "c)Árvore Red Black" << endl << "d)Unordored Map" << endl << "e)Map" << endl << "f)Vector" << endl << "g)Quit" << endl;
-    cin >> escolhaEstrutura;
-    escolhaEstrutura = toupper(escolhaEstrutura);
-
    do{
+        cout << "Escolha a estrutura de dados desejada: " << endl;
+        cout << "a)Árvore AVL" << endl << "b)Árvore Binária" << endl << "c)Árvore Red Black" << endl << "d)Unordored Map" << endl << "e)Map" << endl << "f)Vector" << endl << "g)Quit" << endl;
+        cin >> escolhaEstrutura;
+        escolhaEstrutura = toupper(escolhaEstrutura);
         
         if (escolhaEstrutura == 'A'){
             //chamada arvore avl
@@ -86,29 +84,26 @@ int main(){
         }
 
         else if (escolhaEstrutura == 'E'){
-            //chamada map
+            insertOnMap(myMap);
+            
         }
 
         else if (escolhaEstrutura == 'F'){
-            vector <double> vet;
             double elemento;
-
-            insertVector(file, &vet);
+            insertVector(file, vet);
             cout << "Insira o elemento que deseja pesquisar e remover:" << endl;
             cin >> elemento;
-            searchVector(elemento, &vet);
-            printVector(&vet);
-            escolhaEstrutura = 'G';
-        }else{
+            searchVector(elemento, vet);
+            cout << "\nImprimindo elementos do vetor: " << endl;
+            printVector(vet);
+        }
+        
+        else{
             cout << "Programa encerrado." << endl;
             file.close();
         }
+
     }while(escolhaEstrutura != 'G');
-    
-    
-    
-    
-    
     
     return 0;
 }

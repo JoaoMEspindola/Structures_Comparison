@@ -6,6 +6,9 @@
 #include <algorithm>
 using namespace std;
 
+vector <double>* vet = new vector<double>;
+
+
 void insertVector(ifstream& f, vector <double>* vet);
 void searchVector(double value, vector <double>* vet);
 void deleteVector(double value, vector <double>* vet);
