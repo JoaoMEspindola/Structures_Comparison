@@ -31,6 +31,12 @@ void insertTree(Tree **t, Record r){
 
 }
 
+void insertOnRecord(Tree **t, ifstream& f, Record r){
+  while (f >> r.key){
+    insertTree(t, r);
+  }
+}
+
 void pesquisa(Tree **t, Tree **aux, Record r){
 
   if(*t == NULL){
@@ -94,35 +100,6 @@ void removeTree(Tree **t, Record r){
   	free(aux);
 }
 
-
-void preordem(Tree *t)
-{
-  if(!(t == NULL)){
-    printf("%d ", t->reg.key);
-    preordem(t->esq); 
-    preordem(t->dir); 
-  }
-}
-
-
-void central(Tree *t)
-{
-  if(!(t == NULL)){
-    central(t->esq); 
-    printf("%d ", t->reg.key);
-    central(t->dir); 
-  }
-}
-
-void posordem(Tree *t)
-{
-  if(!(t == NULL)){
-    posordem(t->esq); 
-    posordem(t->dir); 
-    printf("%d ", t->reg.key);
-  }
-}
-
 void widthPath(Tree *t){
   Fila q;
   Item no, filho;
@@ -134,7 +111,7 @@ void widthPath(Tree *t){
   while (!isVazia(&q)){
 
     Desenfileira(&q, &no);
-    printf("%d ", no.p->reg.key);
+    cout << no.p->reg.key << "\n";
 
     if(no.p->esq != NULL){
       filho.p = no.p->esq;

@@ -10,6 +10,7 @@ typedef struct Item Item;
 typedef struct Block Block;
 typedef struct Fila Fila;
 
+
 struct Item{
 	Tree *p;
 };

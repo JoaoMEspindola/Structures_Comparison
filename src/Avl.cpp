@@ -1,7 +1,14 @@
 #include "Avl.hpp"
+#include "FilaAVL.hpp"
 
 AVLTree* CreateAVLTree(){
 	return NULL;
+}
+
+void insertOnAVLRecord(AVLTree **t, ifstream& f, AVLRecord r){
+  while (f >> r.key){
+    insertAVLTree(t, r);
+  }
 }
 
 void insertAVLTree(AVLTree **t, AVLRecord r){
@@ -174,4 +181,34 @@ void rotacaoDuplaDireita(AVLTree **t){
 void rotacaoDuplaEsquerda(AVLTree **t){
 	rotacaoSimplesDireita(&(*t)->right);
 	rotacaoSimplesEsquerda(t);
+}
+
+void widthPathAVL(AVLTree *t){
+  AVLFila q;
+  AVLItem no, filho;
+  
+  FFVazia(&q);
+  no.p = t;
+  Enfileira(&q, no);
+
+  while (!isVazia(&q)){
+
+    Desenfileira(&q, &no);
+    cout << no.p->reg.key << "\n";
+
+    if(no.p->left != NULL){
+      filho.p = no.p->left;
+      Enfileira(&q, filho);
+      //printf(" Entrei esquerda! ");
+    }
+
+    if(no.p->right != NULL){
+      filho.p = no.p->right;
+      Enfileira(&q, filho);
+      //printf(" Entrei direita! ");
+    }
+
+  }
+
+
 }

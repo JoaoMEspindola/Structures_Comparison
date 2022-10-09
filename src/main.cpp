@@ -1,4 +1,3 @@
-#include <fstream>
 #include <time.h>
 #include "Avl.hpp"
 #include "Binary.hpp"
@@ -16,24 +15,18 @@ using namespace std;
 // }
 
 int main(){
-
-    // srand(time(NULL));
-
-    // ofstream file("500.txt");
-
-    // for (int i = 0; i < 500; i++){
-    //     if ((i % 500) == 0){
-    //         file << endl;
-    //     }
-    //     file << rand_double_interval(1, 10) << " ";
-    // }
-
+    //declaração de globais
+    unordered_map <double, double>* unMap = new unordered_map<double,double>;
+    map <double, double>* myMap = new map<double,double>;
+    vector <double>* vet = new vector<double>;
+    Tree* binTree = new Tree;
+    AVLTree* avlTree = new AVLTree;
 
     char escolhaArquivo;
     ifstream file;
 
-    cout << "Escolha o tamanho do arquivo desejado: " << endl;
-    cout << "a)500 pontos flutuantes" << endl << "b)5.000 pontos flutuantes" << endl << "c)50.000 pontos flutuantes" << endl << "d)500.000 pontos flutuantes" << endl << "e)20 pontos flutuantes" << endl;
+    cout << "Escolha o tamanho do arquivo desejado: " << "\n";
+    cout << "a)500 pontos flutuantes" << "\n" << "b)5.000 pontos flutuantes" << "\n" << "c)50.000 pontos flutuantes" << "\n" << "d)500.000 pontos flutuantes" << "\n" << "e)20 pontos flutuantes" << "\n";
     cin >> escolhaArquivo;
     escolhaArquivo = toupper(escolhaArquivo);
 
@@ -62,17 +55,30 @@ int main(){
 
     char escolhaEstrutura;
    do{
-        cout << "Escolha a estrutura de dados desejada: " << endl;
-        cout << "a)Árvore AVL" << endl << "b)Árvore Binária" << endl << "c)Árvore Red Black" << endl << "d)Unordored Map" << endl << "e)Map" << endl << "f)Vector" << endl << "g)Quit" << endl;
+        cout << "\nEscolha a estrutura de dados desejada: " << "\n";
+        cout << "a)Árvore AVL" << "\n" << "b)Árvore Binária" << "\n" << "c)Árvore Red Black" << "\n" << "d)Unordored Map" << "\n" << "e)Map" << "\n" << "f)Vector" << "\n" << "g)Quit" << "\n";
         cin >> escolhaEstrutura;
         escolhaEstrutura = toupper(escolhaEstrutura);
         
         if (escolhaEstrutura == 'A'){
-            //chamada arvore avl
+            AVLRecord elemento;
+            AVLTree* avlTreeAux = new AVLTree;
+            insertOnAVLRecord(&avlTree, file, avlTree->reg);
+            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
+            cin >> elemento.key;
+            removeAVLTree(&avlTree, &avlTreeAux, elemento);
+            cout << "\nImprimindo elementos da árvore AVL: " << "\n";
+            widthPathAVL(avlTree);
         }
         
         else if (escolhaEstrutura == 'B'){
-            //chamada arvore binaria
+            Record elemento;
+            insertOnRecord(&binTree, file, binTree->reg);
+            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
+            cin >> elemento.key;
+            removeTree(&binTree, elemento);
+            cout << "\nImprimindo elementos da árvore binária: " << "\n";
+            widthPath(binTree);
         }
         
         else if (escolhaEstrutura == 'C'){
@@ -80,26 +86,37 @@ int main(){
         }
         
         else if (escolhaEstrutura == 'D'){
-            //chamada unordored map
+            double elemento;
+            insertOnUnMap(file, unMap);
+            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
+            cin >> elemento;
+            searchOnUnMap(elemento, unMap);
+            cout << "\nImprimindo elementos do unMap: " << "\n";
+            printUnMap(unMap);
         }
 
         else if (escolhaEstrutura == 'E'){
-            insertOnMap(myMap);
-            
+            double elemento;
+            insertOnMap(file, myMap);
+            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
+            cin >> elemento;
+            searchOnMap(elemento, myMap);
+            cout << "\nImprimindo elementos do myMap: " << "\n";
+            printMap(myMap);
         }
 
         else if (escolhaEstrutura == 'F'){
             double elemento;
             insertVector(file, vet);
-            cout << "Insira o elemento que deseja pesquisar e remover:" << endl;
+            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
             cin >> elemento;
             searchVector(elemento, vet);
-            cout << "\nImprimindo elementos do vetor: " << endl;
+            cout << "\nImprimindo elementos do vetor: " << "\n";
             printVector(vet);
         }
         
         else{
-            cout << "Programa encerrado." << endl;
+            cout << "Programa encerrado." << "\n";
             file.close();
         }
 

@@ -1,15 +1,17 @@
-#ifndef AVL_H 
-#define AVL_H
+#ifndef AVL_HPP 
+#define AVL_HPP
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 typedef struct AVLRecord AVLRecord;
 typedef struct AVLTree AVLTree;
 
 struct AVLRecord{
-	int key;
-	int value;
+	double key;
 };
 
 struct AVLTree{
@@ -22,16 +24,14 @@ AVLTree* CreateAVLTree();
 void insertAVLTree(AVLTree **t, AVLRecord r);
 void pesquisa(AVLTree **t, AVLTree **aux, AVLRecord r);
 int isInAVLTree(AVLTree *t, AVLRecord r);
+void insertOnAVLRecord(AVLTree **t, ifstream& f, AVLRecord r);
 
 //muda o remove devido a necessidade de ponteiro para sub-árvore desbalanceada
 void removeAVLTree(AVLTree **t, AVLTree **f, AVLRecord r);
 void antecessor(AVLTree **t, AVLTree *aux);
 void rebalanceAVLTree(AVLTree **t);
 
-void preordem(AVLTree *t);
-void central(AVLTree *t);
-void posordem(AVLTree *t);
-
+void widthPathAVL(AVLTree *t);
 
 int getWeight(AVLTree **t);
 int getMaxWeight(int left, int right);
