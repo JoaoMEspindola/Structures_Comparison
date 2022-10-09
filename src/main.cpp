@@ -40,9 +40,11 @@ int main(){
         
         if (escolhaEstrutura == 'A'){
             AVLRecord avlElemento;
+            AVLTree* avlTreeAux = CreateAVLTree();
             insertOnAVLRecord(&avlTree, escolhaArquivo, avlElemento);
             cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
             cin >> avlElemento.key;
+            pesquisaAVL(&avlTree, &avlTreeAux, avlElemento);
             removeAVLTree(&avlTree, &avlTree, avlElemento);
             cout << "\nImprimindo elementos da árvore AVL: " << "\n";
             widthPathAVL(avlTree);
@@ -50,9 +52,11 @@ int main(){
         
         else if (escolhaEstrutura == 'B'){
             Record binElemento;
+            Tree* binTreeAux = CreateTree();
             insertOnRecord(&binTree, escolhaArquivo, binElemento);
             cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
             cin >> binElemento.key;
+            pesquisaBinary(&binTree, &binTreeAux, binElemento);
             removeTree(&binTree, binElemento);
             cout << "\nImprimindo elementos da árvore binária: " << "\n";
             widthPath(binTree);

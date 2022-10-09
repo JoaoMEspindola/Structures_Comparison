@@ -22,7 +22,7 @@ struct AVLTree{
 
 AVLTree* CreateAVLTree();
 void insertAVLTree(AVLTree **t, AVLRecord r);
-void pesquisa(AVLTree **t, AVLTree **aux, AVLRecord r);
+void pesquisaAVL(AVLTree **t, AVLTree **aux, AVLRecord r);
 int isInAVLTree(AVLTree *t, AVLRecord r);
 void insertOnAVLRecord(AVLTree **t, string file, AVLRecord r);
 
