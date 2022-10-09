@@ -1,10 +1,13 @@
 #include "Maps.hpp"
 
-void insertOnMap(ifstream& f, map<double, double>* myMap){
+void insertOnMap(string file, map<double, double>* myMap){
     double value;
+    ifstream f;
+    f.open(file + ".txt");
     while(f >> value){
         (*myMap)[value] = value;
     }
+    f.close();
 }
 
 void searchOnMap(double value, map <double, double>* myMap){
@@ -24,11 +27,14 @@ void printMap(map <double, double>* myMap){
     }
 }
 
-void insertOnUnMap(ifstream& f, unordered_map <double, double>* unMap){
+void insertOnUnMap(string file, unordered_map <double, double>* unMap){
     double value;
+    ifstream f;
+    f.open(file + ".txt");
     while(f >> value){
         (*unMap)[value] = value;
     }
+    f.close();
 }
 
 void searchOnUnMap(double value, unordered_map <double, double>* unMap){

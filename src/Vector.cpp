@@ -1,10 +1,13 @@
 #include "Vector.hpp"
 
-void insertVector(ifstream& f, vector <double>* vet){
+void insertVector(string file, vector <double>* vet){
     double num;
+    ifstream f;
+    f.open(file + ".txt");
     while (f >> num){
         (*vet).push_back(num);
     }
+    f.close();
     sort((*vet).begin(), (*vet).end());
 }
 

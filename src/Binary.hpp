@@ -22,7 +22,7 @@ struct Tree{
 
 Tree* CreateTree();
 bool TVazia(Tree **t);
-void insertOnRecord(Tree **t, ifstream&f, Record r);
+void insertOnRecord(Tree **t, string file, Record r);
 void insertTree(Tree **t, Record r);
 void pesquisa(Tree **t, Tree **aux, Record r);
 int isInTree(Tree *t, Record r);

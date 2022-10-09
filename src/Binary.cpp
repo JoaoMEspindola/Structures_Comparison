@@ -31,10 +31,13 @@ void insertTree(Tree **t, Record r){
 
 }
 
-void insertOnRecord(Tree **t, ifstream& f, Record r){
+void insertOnRecord(Tree **t, string file, Record r){
+  ifstream f;
+  f.open(file + ".txt");
   while (f >> r.key){
     insertTree(t, r);
   }
+  f.close();
 }
 
 void pesquisa(Tree **t, Tree **aux, Record r){

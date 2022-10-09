@@ -7,10 +7,10 @@
 #include <fstream>
 using namespace std;
 
-void insertOnMap(ifstream& f, map <double, double>* myMap);
+void insertOnMap(string file, map <double, double>* myMap);
 void searchOnMap(double value, map <double, double>* myMap);
 
-void insertOnUnMap(ifstream& f, unordered_map <double, double>* unMap);
+void insertOnUnMap(string file, unordered_map <double, double>* unMap);
 void searchOnUnMap(double value, unordered_map <double, double>* unMap);
 
 void printMap(map <double, double>* myMap);

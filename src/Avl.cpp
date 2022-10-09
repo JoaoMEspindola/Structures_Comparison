@@ -5,16 +5,19 @@ AVLTree* CreateAVLTree(){
 	return NULL;
 }
 
-void insertOnAVLRecord(AVLTree **t, ifstream& f, AVLRecord r){
+void insertOnAVLRecord(AVLTree **t, string file, AVLRecord r){
+  ifstream f;
+  f.open(file + ".txt");
   while (f >> r.key){
     insertAVLTree(t, r);
   }
+  f.close();
 }
 
 void insertAVLTree(AVLTree **t, AVLRecord r){
 
   if(*t == NULL){
-    *t = (AVLTree*)malloc(sizeof(AVLTree));
+    *t = new AVLTree;
     (*t)->left   = NULL; 
     (*t)->right  = NULL; 
     (*t)->weight = 0;

@@ -6,7 +6,7 @@
 #include <algorithm>
 using namespace std;
 
-void insertVector(ifstream& f, vector <double>* vet);
+void insertVector(string file, vector <double>* vet);
 void searchVector(double value, vector <double>* vet);
 void deleteVector(double value, vector <double>* vet);
 void printVector(vector <double>* vet);

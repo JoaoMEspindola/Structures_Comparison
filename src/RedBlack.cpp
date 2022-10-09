@@ -1,7 +1,7 @@
 #include "RedBlack.hpp"
 
 RBTree* CreateRBTree(){
-  return NULL;
+  return nullptr;
 }
 
 void insertFixUp(RBTree **raiz, RBTree *child){
@@ -14,7 +14,7 @@ void insertFixUp(RBTree **raiz, RBTree *child){
         tio = child->pai->pai->dir;
 
         //caso 1:
-        if((tio != NULL) && (tio->cor == false)){
+        if((tio != nullptr) && (tio->cor == false)){
           child->pai->cor = true;
           tio->cor = true;
           child->pai->pai->cor = false;
@@ -39,7 +39,7 @@ void insertFixUp(RBTree **raiz, RBTree *child){
         tio = child->pai->pai->esq;
         
         //caso 1
-        if((tio != NULL) && (tio->cor == false)){
+        if((tio != nullptr) && (tio->cor == false)){
           child->pai->cor = true;
           tio->cor = true;
           child->pai->pai->cor = false;
@@ -69,11 +69,11 @@ void insertFixUp(RBTree **raiz, RBTree *child){
 
 void insertRBTree(RBTree **t, RBTree **pai, RBTree **raiz, RBRecord r){
   
-  if(*t == NULL){
-    *t = (RBTree*)malloc(sizeof(RBTree));
-    (*t)->esq = NULL; 
-    (*t)->dir = NULL; 
-    (*t)->pai = pai!=t?*pai:NULL;
+  if(*t == nullptr){
+    *t = new RBTree;
+    (*t)->esq = nullptr; 
+    (*t)->dir = nullptr; 
+    (*t)->pai = pai!=t?*pai:nullptr;
     (*t)->cor = false; //false: vermelho  true:preto
     (*t)->reg = r; 
     insertFixUp(raiz, *t);
@@ -94,10 +94,18 @@ void insertRBTree(RBTree **t, RBTree **pai, RBTree **raiz, RBRecord r){
 
 }
 
+void insertOnRBRecord(RBTree **t, string file, RBRecord r){
+  ifstream f;
+  f.open(file + ".txt");
+  while (f >> r.key){
+    insertRBTree(t, t, t, r);
+  }
+  f.close();
+}
 
 void pesquisa(RBTree **t, RBTree **aux, RBRecord r){
 
-  if(*t == NULL){
+  if(*t == nullptr){
     printf("[ERROR]: Node not found!");
     return;
   }
@@ -115,12 +123,12 @@ void rotacaoSimplesEsquerda(RBTree **raiz, RBTree *child){
   y = child->dir;
   x->dir = y->esq;
 
-  if(y->esq != NULL)
+  if(y->esq != nullptr)
     y->esq->pai = x;
 
   y->pai = x->pai;
   
-  if(x->pai == NULL)
+  if(x->pai == nullptr)
     *raiz = y;
 
   else{
@@ -145,12 +153,12 @@ void rotacaoSimplesDireita(RBTree **raiz, RBTree *child){
   y = child->esq;
   x->esq = y->dir;
 
-  if(y->dir != NULL)
+  if(y->dir != nullptr)
     y->dir->pai = x;
 
   y->pai = x->pai;
   
-  if(x->pai == NULL){
+  if(x->pai == nullptr){
     *raiz = y;
   }
 
@@ -171,8 +179,8 @@ void rotacaoSimplesDireita(RBTree **raiz, RBTree *child){
 
 
 void preordem(RBTree *t){
-  if(!(t == NULL)){
-    printf("%d - %s\t", t->reg.key, t->cor ? "black" : "red");
+  if(!(t == nullptr)){
+    printf("%f - %s\t", t->reg.key, t->cor ? "black" : "red");
     preordem(t->esq); 
     preordem(t->dir); 
   }
@@ -180,17 +188,17 @@ void preordem(RBTree *t){
 
 
 void central(RBTree *t){
-  if(!(t == NULL)){
+  if(!(t == nullptr)){
     central(t->esq); 
-    printf("%d - %s\t", t->reg.key, t->cor ? "black" : "red");
+    printf("%f - %s\t", t->reg.key, t->cor ? "black" : "red");
     central(t->dir); 
   }
 }
 
 void posordem(RBTree *t){
-  if(!(t == NULL)){
+  if(!(t == nullptr)){
     posordem(t->esq); 
     posordem(t->dir); 
-    printf("%d - %s\t", t->reg.key, t->cor ? "black" : "red");
+    printf("%f - %s\t", t->reg.key, t->cor ? "black" : "red");
   }
 }

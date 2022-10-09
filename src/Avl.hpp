@@ -24,7 +24,7 @@ AVLTree* CreateAVLTree();
 void insertAVLTree(AVLTree **t, AVLRecord r);
 void pesquisa(AVLTree **t, AVLTree **aux, AVLRecord r);
 int isInAVLTree(AVLTree *t, AVLRecord r);
-void insertOnAVLRecord(AVLTree **t, ifstream& f, AVLRecord r);
+void insertOnAVLRecord(AVLTree **t, string file, AVLRecord r);
 
 //muda o remove devido a necessidade de ponteiro para sub-árvore desbalanceada
 void removeAVLTree(AVLTree **t, AVLTree **f, AVLRecord r);
