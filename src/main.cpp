@@ -65,6 +65,7 @@ int main(){
         else if (escolhaEstrutura == 'C'){
             RBRecord rbElemento;
             insertOnRBRecord(&rbTree, escolhaArquivo, rbElemento);
+            
             cout << "\nImprimindo elementos da árvore RB: " << "\n";
             central(rbTree);
         }
