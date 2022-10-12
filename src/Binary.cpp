@@ -40,15 +40,15 @@ void insertOnRecord(Tree **t, string file, Record r){
   f.close();
 }
 
-void pesquisa(Tree **t, Tree **aux, Record r){
+void pesquisaBinary(Tree **t, Tree **aux, Record r){
 
   if(*t == NULL){
     printf("[ERROR]: Node not found!");
     return;
   }
 
-  if((*t)->reg.key > r.key){ pesquisa(&(*t)->esq, aux, r); return;}
-  if((*t)->reg.key < r.key){ pesquisa(&(*t)->dir, aux, r); return;}
+  if((*t)->reg.key > r.key){ pesquisaBinary(&(*t)->esq, aux, r); return;}
+  if((*t)->reg.key < r.key){ pesquisaBinary(&(*t)->dir, aux, r); return;}
 
   *aux = *t;
 }

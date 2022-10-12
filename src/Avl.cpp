@@ -51,15 +51,15 @@ void insertAVLTree(AVLTree **t, AVLRecord r){
 }
 
 
-void pesquisa(AVLTree **t, AVLTree **aux, AVLRecord r){
+void pesquisaAVL(AVLTree **t, AVLTree **aux, AVLRecord r){
 
 	if(*t == NULL){
 		printf("[ERROR]: Node not found!");
 		return;
 	}
 
-	if((*t)->reg.key > r.key){ pesquisa(&(*t)->left, aux, r); return;}
-	if((*t)->reg.key < r.key){ pesquisa(&(*t)->right, aux, r); return;}
+	if((*t)->reg.key > r.key){ pesquisaAVL(&(*t)->left, aux, r); return;}
+	if((*t)->reg.key < r.key){ pesquisaAVL(&(*t)->right, aux, r); return;}
 
 	*aux = *t;
 }

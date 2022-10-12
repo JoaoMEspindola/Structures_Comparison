@@ -65,7 +65,10 @@ int main(){
         else if (escolhaEstrutura == 'C'){
             RBRecord rbElemento;
             insertOnRBRecord(&rbTree, escolhaArquivo, rbElemento);
-            
+            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
+            cin >> rbElemento.key;
+            pesquisaRB(&rbTree, &rbTree, rbElemento);
+            removeRBTree(&rbTree, &rbTree, rbElemento);
             cout << "\nImprimindo elementos da árvore RB: " << "\n";
             central(rbTree);
         }
