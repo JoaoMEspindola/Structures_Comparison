@@ -18,12 +18,13 @@ void printVector(vector <double>* vet){
 }
 
 void searchVector(double value, vector <double>* vet){
+    binary_search((*vet).begin(), (*vet).end(), value);
+    return;
+}
+
+void deleteVector(double value, vector <double>* vet){
     if (binary_search((*vet).begin(), (*vet).end(), value) == true){
-        cout << value << " existe no vector, removendo-o" << endl;
         (*vet).erase(lower_bound((*vet).begin(), (*vet).end(), value));
-    }
-    else{
-        cout << value << " não existe" << endl;
     }
     return;
 }

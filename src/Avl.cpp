@@ -52,9 +52,7 @@ void insertAVLTree(AVLTree **t, AVLRecord r){
 
 
 void pesquisaAVL(AVLTree **t, AVLTree **aux, AVLRecord r){
-
-	if(*t == NULL){
-		printf("[ERROR]: Node not found!");
+    if(*t == NULL){
 		return;
 	}
 
@@ -84,7 +82,7 @@ void antecessor(AVLTree **t, AVLTree *aux){
   	aux->reg = (*t)->reg;
   	aux = *t; 
   	*t = (*t)->left;
-  	free(aux);
+  	delete(aux);
 } 
 
 void rebalanceAVLTree(AVLTree **t){
@@ -114,7 +112,6 @@ void removeAVLTree(AVLTree **t, AVLTree **f, AVLRecord r){
 	AVLTree *aux;
   	
   	if (*t == NULL){ 
-  		printf("[ERROR]: AVLRecord not found!!!\n");
     	return;
   	}
 
@@ -124,7 +121,7 @@ void removeAVLTree(AVLTree **t, AVLTree **f, AVLRecord r){
   	if ((*t)->right == NULL){ 
   		aux = *t;  
   		*t = (*t)->left;
-    	free(aux);
+    	delete(aux);
     	rebalanceAVLTree(f);
     	return;
   	}
@@ -138,7 +135,7 @@ void removeAVLTree(AVLTree **t, AVLTree **f, AVLRecord r){
 
   	aux = *t;  
   	*t = (*t)->right;
-  	free(aux);
+  	delete(aux);
   	rebalanceAVLTree(t);
   	rebalanceAVLTree(f); 	
   	

@@ -12,7 +12,7 @@ bool TVazia(Tree **t){
 void insertTree(Tree **t, Record r){
 
   if(TVazia(t)){
-    *t = (Tree*)malloc(sizeof(Tree));
+    *t = new Tree;
     (*t)->esq = NULL; 
     (*t)->dir = NULL; 
     (*t)->reg = r; 
@@ -42,15 +42,15 @@ void insertOnRecord(Tree **t, string file, Record r){
 
 void pesquisaBinary(Tree **t, Tree **aux, Record r){
 
-  if(*t == NULL){
-    printf("[ERROR]: Node not found!");
-    return;
-  }
+    if(*t == NULL){
+        return;
+    }
 
-  if((*t)->reg.key > r.key){ pesquisaBinary(&(*t)->esq, aux, r); return;}
-  if((*t)->reg.key < r.key){ pesquisaBinary(&(*t)->dir, aux, r); return;}
+    if((*t)->reg.key > r.key){ pesquisaBinary(&(*t)->esq, aux, r); return;}
+    if((*t)->reg.key < r.key){ pesquisaBinary(&(*t)->dir, aux, r); return;}
 
-  *aux = *t;
+    // cout << "Deletando " << (*t)->reg.key << "\n";
+    *aux = *t;
 }
 
 
@@ -74,7 +74,7 @@ void antecessor(Tree **t, Tree *aux){
   aux->reg = (*t)->reg;
   aux = *t; 
   *t = (*t)->esq;
-  free(aux);
+  delete(aux);
 } 
 
 
@@ -82,7 +82,6 @@ void removeTree(Tree **t, Record r){
 	Tree *aux;
   	
   	if (*t == NULL){ 
-  		printf("[ERROR]: Record not found!!!\n");
     	return;
   	}
 
@@ -92,7 +91,7 @@ void removeTree(Tree **t, Record r){
   	if ((*t)->dir == NULL){ 
   		aux = *t;  
   		*t = (*t)->esq;
-    	free(aux);
+    	delete(aux);
     	return;
   	}
 
@@ -100,7 +99,7 @@ void removeTree(Tree **t, Record r){
 
   	aux = *t;  
   	*t = (*t)->dir;
-  	free(aux);
+  	delete(aux);
 }
 
 void widthPath(Tree *t){

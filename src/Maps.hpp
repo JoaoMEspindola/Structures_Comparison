@@ -9,9 +9,11 @@ using namespace std;
 
 void insertOnMap(string file, map <double, double>* myMap);
 void searchOnMap(double value, map <double, double>* myMap);
+void deleteOnMap(double value, map <double, double>* myMap);
 
 void insertOnUnMap(string file, unordered_map <double, double>* unMap);
 void searchOnUnMap(double value, unordered_map <double, double>* unMap);
+void deleteOnUnMap(double value, unordered_map <double, double>* unMap);
 
 void printMap(map <double, double>* myMap);
 void printUnMap(unordered_map <double, double>* unMap);

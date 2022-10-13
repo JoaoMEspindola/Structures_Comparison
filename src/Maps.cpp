@@ -14,10 +14,15 @@ void searchOnMap(double value, map <double, double>* myMap){
     auto it = (*myMap).find(value);
 
     if (it != (*myMap).end()){
-        cout << "\n" << value << " encontrado no mapa, removendo-o..." << "\n";
+        return;
+    }
+}
+
+void deleteOnMap(double value, map <double, double>* myMap){
+    auto it = (*myMap).find(value);
+
+    if (it != (*myMap).end()){
         (*myMap).erase(it);
-    }else{
-        cout << "\nElemento não encontrado no myMap." << "\n";
     }
 }
 
@@ -41,11 +46,17 @@ void searchOnUnMap(double value, unordered_map <double, double>* unMap){
     auto it = (*unMap).find(value);
 
     if (it != (*unMap).end()){
-        cout << "\n" << value << " encontrado no mapa, removendo-o..." << "\n";
-        (*unMap).erase(it);
-    }else{
-        cout << "\nElemento não encontrado no unMap." << "\n";
+        return;
     }
+}
+
+void deleteOnUnMap(double value, unordered_map <double, double>* unMap){
+    auto it = (*unMap).find(value);
+
+    if (it != (*unMap).end()){
+        (*unMap).erase(it);
+    }
+    return;
 }
 
 void printUnMap(unordered_map <double, double>* unMap){

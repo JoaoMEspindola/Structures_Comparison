@@ -5,7 +5,9 @@
 #include "Maps.hpp"
 #include "RedBlack.hpp"
 #include "Vector.hpp"
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 // double rand_double(){
 //     return ((double)rand()) / ((double)RAND_MAX);
@@ -16,6 +18,17 @@ using namespace std;
 // }
 
 int main(){
+    // srand(time(NULL));
+
+    // ofstream f("consulta.txt");
+
+    // for (int i = 0; i < 3000; i++){
+    //     if ((i % 500) == 0 && i != 0){
+    //         f << "\n";
+    //     }
+    //     f << rand_double_interval(1, 10) << " ";
+    // }
+
     //declaração de globais
     unordered_map <double, double>* unMap = new unordered_map<double,double>;
     map <double, double>* myMap = new map<double,double>;
@@ -41,66 +54,197 @@ int main(){
         if (escolhaEstrutura == 'A'){
             AVLRecord avlElemento;
             AVLTree* avlTreeAux = CreateAVLTree();
+            file.open("consulta.txt");
+
+            auto startInsert = steady_clock::now();
             insertOnAVLRecord(&avlTree, escolhaArquivo, avlElemento);
-            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
-            cin >> avlElemento.key;
-            pesquisaAVL(&avlTree, &avlTreeAux, avlElemento);
-            removeAVLTree(&avlTree, &avlTree, avlElemento);
-            cout << "\nImprimindo elementos da árvore AVL: " << "\n";
-            widthPathAVL(avlTree);
+            auto endInsert = steady_clock::now();
+            auto elapsedInsert = endInsert - startInsert;
+
+            cout << "A inserção na AVL demorou " << duration <double> {elapsedInsert}.count() << "segundos\n";
+
+            auto startSearch = steady_clock::now();
+            while(file >> avlElemento.key){
+                pesquisaAVL(&avlTree, &avlTreeAux, avlElemento);
+            }
+            auto endSearch = steady_clock::now();
+            auto elapsedSearch = endSearch - startSearch;
+
+            cout << "A pesquisa na AVL demorou " << duration <double> {elapsedSearch}.count() << "segundos\n";
+            file.close();
+
+            file.open("consulta.txt");
+            
+            auto startDeletion = steady_clock::now();
+            while(file >> avlElemento.key){
+                removeAVLTree(&avlTree, &avlTree, avlElemento);
+            }
+            auto endDeletion = steady_clock::now();
+            auto elapsedDeletion = endDeletion - startDeletion;
+
+            cout << "A remoção na AVL demorou " << duration <double> {elapsedDeletion}.count() << "segundos\n";
+            file.close();
         }
         
         else if (escolhaEstrutura == 'B'){
             Record binElemento;
             Tree* binTreeAux = CreateTree();
+            file.open("consulta.txt");
+
+            auto startInsert = steady_clock::now();
             insertOnRecord(&binTree, escolhaArquivo, binElemento);
-            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
-            cin >> binElemento.key;
-            pesquisaBinary(&binTree, &binTreeAux, binElemento);
-            removeTree(&binTree, binElemento);
-            cout << "\nImprimindo elementos da árvore binária: " << "\n";
-            widthPath(binTree);
+            auto endInsert = steady_clock::now();
+            auto elapsedInsert = endInsert - startInsert;
+
+            cout << "A inserção na Binária demorou " << duration <double> {elapsedInsert}.count() << "segundos\n";
+            
+            auto startSearch = steady_clock::now();
+            while(file >> binElemento.key){
+                pesquisaBinary(&binTree, &binTreeAux, binElemento);
+            }
+            auto endSearch = steady_clock::now();
+            auto elapsedSearch = endSearch - startSearch;
+            cout << "A pesquisa na Binária demorou " << duration <double> {elapsedSearch}.count() << "segundos\n";
+            file.close();
+
+            file.open("consulta.txt");
+            auto startDeletion = steady_clock::now();
+            while(file >> binElemento.key){
+                removeTree(&binTree, binElemento);
+            }
+            auto endDeletion = steady_clock::now();
+            auto elapsedDeletion = endDeletion - startDeletion;
+            cout << "A remoção na Binária demorou " << duration <double> {elapsedDeletion}.count() << "segundos\n";
+
+            file.close();
         }
         
         else if (escolhaEstrutura == 'C'){
             RBRecord rbElemento;
+            RBTree* rbTreeAux = CreateRBTree();
+            file.open("consulta.txt");
+
+            auto startInsert = steady_clock::now();
             insertOnRBRecord(&rbTree, escolhaArquivo, rbElemento);
-            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
-            cin >> rbElemento.key;
-            pesquisaRB(&rbTree, &rbTree, rbElemento);
-            removeRBTree(&rbTree, &rbTree, rbElemento);
-            cout << "\nImprimindo elementos da árvore RB: " << "\n";
-            central(rbTree);
+            auto endInsert = steady_clock::now();
+            auto elapsedInsert = endInsert - startInsert;
+            cout << "A inserção na Red Black demorou " << duration <double> {elapsedInsert}.count() << "segundos\n";
+
+            auto startSearch = steady_clock::now();
+            while(file >> rbElemento.key){
+                pesquisaRB(&rbTree, &rbTreeAux, rbElemento);
+            }
+            auto endSearch = steady_clock::now();
+            auto elapsedSearch = endSearch - startSearch;
+            cout << "A pesquisa na Red Black demorou " << duration <double> {elapsedSearch}.count() << "segundos\n";
+            file.close();
+
+            file.open("consulta.txt");
+
+            auto startDeletion = steady_clock::now();
+            while(file >> rbElemento.key){
+                removeRBTree(&rbTree, &rbTreeAux, rbElemento);
+            }
+            auto endDeletion = steady_clock::now();
+            auto elapsedDeletion = endDeletion - startDeletion;
+            cout << "A remoção na Red Black demorou " << duration <double> {elapsedDeletion}.count() << "segundos\n";
+            file.close();
         }
         
         else if (escolhaEstrutura == 'D'){
             double unmapElemento;
+            file.open("consulta.txt");
+
+            auto startInsert = steady_clock::now();
             insertOnUnMap(escolhaArquivo, unMap);
-            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
-            cin >> unmapElemento;
-            searchOnUnMap(unmapElemento, unMap);
-            cout << "\nImprimindo elementos do unMap: " << "\n";
-            printUnMap(unMap);
+            auto endInsert = steady_clock::now();
+            auto elapsedInsert = endInsert - startInsert;
+            cout << "A inserção no Unordered Map demorou " << duration <double> {elapsedInsert}.count() << "segundos\n";
+
+            auto startSearch = steady_clock::now();
+            while(file >> unmapElemento){
+                searchOnUnMap(unmapElemento, unMap);
+            }
+            auto endSearch = steady_clock::now();
+            auto elapsedSearch = endSearch - startSearch;
+            cout << "A pesquisa no Unordered Map demorou " << duration <double> {elapsedSearch}.count() << "segundos\n";
+            file.close();
+
+            file.open("consulta.txt");
+
+            auto startDeletion = steady_clock::now();
+            while (file >> unmapElemento){
+                deleteOnUnMap(unmapElemento, unMap);
+            }
+            auto endDeletion = steady_clock::now();
+            auto elapsedDeletion = endDeletion - startDeletion;
+            cout << "A remoção no Unordered Map demorou " << duration <double> {elapsedDeletion}.count() << "segundos\n";
+
+            file.close();
         }
 
         else if (escolhaEstrutura == 'E'){
             double mapElemento;
+            file.open("consulta.txt");
+
+            auto startInsert = steady_clock::now();
             insertOnMap(escolhaArquivo, myMap);
-            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
-            cin >> mapElemento;
-            searchOnMap(mapElemento, myMap);
-            cout << "\nImprimindo elementos do myMap: " << "\n";
-            printMap(myMap);
+            auto endInsert = steady_clock::now();
+            auto elapsedInsert = endInsert - startInsert;
+            cout << "A inserção no Map demorou " << duration <double> {elapsedInsert}.count() << "segundos\n";
+            
+            auto startSearch = steady_clock::now();
+            while(file >> mapElemento){
+                searchOnMap(mapElemento, myMap);
+            }
+            auto endSearch = steady_clock::now();
+            auto elapsedSearch = endSearch - startSearch;
+            cout << "A pesquisa no Map demorou " << duration <double> {elapsedSearch}.count() << "segundos\n";
+            file.close();
+
+            file.open("consulta.txt");
+
+            auto startDeletion = steady_clock::now();
+            while(file >> mapElemento){
+                deleteOnMap(mapElemento, myMap);
+            }
+            auto endDeletion = steady_clock::now();
+            auto elapsedDeletion = endDeletion - startDeletion;
+            cout << "A remoção no Map demorou " << duration <double> {elapsedDeletion}.count() << "segundos\n";
+
+            file.close();
         }
 
         else if (escolhaEstrutura == 'F'){
             double elemento;
+            file.open("consulta.txt");
+
+            auto startInsert = steady_clock::now();
             insertVector(escolhaArquivo, vet);
-            cout << "Insira o elemento que deseja pesquisar e remover:" << "\n";
-            cin >> elemento;
-            searchVector(elemento, vet);
-            cout << "\nImprimindo elementos do vetor: " << "\n";
-            printVector(vet);
+            auto endInsert = steady_clock::now();
+            auto elapsedInsert = endInsert - startInsert;
+            cout << "A inserção no vetor demorou " << duration <double> {elapsedInsert}.count() << "segundos\n";
+
+            auto startSearch = steady_clock::now();
+            while (file >> elemento){
+                searchVector(elemento, vet);
+            }
+            auto endSearch = steady_clock::now();
+            auto elapsedSearch = endSearch - startSearch;
+            cout << "A pesquisa no vetor demorou " << duration <double> {elapsedSearch}.count() << "segundos\n";
+            file.close();
+
+            file.open("consulta.txt");
+
+            auto startDeletion = steady_clock::now();
+            while (file >> elemento){
+                deleteVector(elemento, vet);
+            }
+            auto endDeletion = steady_clock::now();
+            auto elapsedDeletion = endDeletion - startDeletion;
+            cout << "A remoção no vetor demorou " << duration <double> {elapsedDeletion}.count() << "segundos\n";
+
+            file.close();
         }
         
         else{

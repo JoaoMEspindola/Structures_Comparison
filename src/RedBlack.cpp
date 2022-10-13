@@ -113,13 +113,13 @@ void insertRBTree(RBTree **t, RBTree **pai, RBTree **raiz, RBRecord r){
 void pesquisaRB(RBTree **t, RBTree **aux, RBRecord r){
 
 	if(*t == nullptr){
-		printf("[ERROR]: Node not found!");
 		return;
 	}
 
 	if((*t)->reg.key > r.key){ pesquisaRB(&(*t)->esq, aux, r); return;}
 	if((*t)->reg.key < r.key){ pesquisaRB(&(*t)->dir, aux, r); return;}
 
+    // cout << "Deletando " << (*t)->reg.key << "\n";
 	*aux = *t;
 }
 
@@ -235,16 +235,21 @@ void deleteRBNode(RBTree **t, RBTree *node){
         if (sucessorSon == nullptr){
             sucessorSon = new RBTree;
             CreateNil(sucessorSon);
-            sucessorSon->pai = nodeSucessor;
-            nodeSucessor->esq = sucessorSon;
             node->dir = sucessorSon;
         }
 		transplant(t, node, node->dir);
+        sucessorSon->pai = node->pai;
 	}
 
 	else if(node->dir == nullptr){
 		sucessorSon = node->esq;
+        if (sucessorSon == nullptr){
+            sucessorSon = new RBTree;
+            CreateNil(sucessorSon);
+            node->esq = sucessorSon;
+        }
 		transplant(t, node, node->esq);
+        sucessorSon->pai = node->pai;
 	}
 
 	else{
@@ -299,62 +304,66 @@ void deleteFixUp(RBTree **t, RBTree *x){
 	while (x != (*t) && x->cor == true){
 		if (x == x->pai->esq){
 			RBTree *w = x->pai->dir;
+            if (w != nullptr){
+                if(w->cor == false){
+                    w->cor = true;
+                    x->pai->cor = false;
+                    rotacaoSimplesEsquerda(t, x->pai);
+                    w = x->pai->dir;
+                }
 
-			if(w->cor == false){
-				w->cor = true;
-				x->pai->cor = false;
-				rotacaoSimplesEsquerda(t, x->pai);
-				w = x->pai->dir;
-			}
+                if ((w->dir == nullptr || w->dir->cor == true) && (w->esq == nullptr || w->esq->cor == true)){
+                    w->cor = false;
+                    x = x->pai;
+                }
 
-			if ((w->esq == nullptr || w->esq->cor == true) && (w->dir == nullptr || w->dir->cor == true)){
-				w->cor = false;
-				x = x->pai;
-			}
+                else if (w->dir == nullptr || w->dir->cor == true){
+                    w->esq->cor = true;
+                    w->cor = false;
+                    rotacaoSimplesDireita(t, w);
+                    w = x->pai->dir;
+                }
 
-			else if (w->dir->cor == true){
-				w->esq->cor = true;
-				w->cor = false;
-				rotacaoSimplesDireita(t, w);
-				w = x->pai->dir;
-			}
-
-            if (w->esq != nullptr && w->esq->cor == false){
-                w->cor = x->pai->cor;
-                x->pai->cor = true;
-                w->dir->cor = true;
-                rotacaoSimplesEsquerda(t, x->pai);
-                x = (*t);
-            }
+                if (w->dir != nullptr && w->dir->cor == false){
+                    w->cor = x->pai->cor;
+                    x->pai->cor = true;
+                    w->dir->cor = true;
+                    rotacaoSimplesEsquerda(t, x->pai);
+                    x = (*t);
+                }
+            }else
+                x = x->pai;
 		}else{
 			RBTree *w = x->pai->esq;
+            if (w != nullptr){
+                if(w->cor == false){
+                    w->cor = true;
+                    x->pai->cor = false;
+                    rotacaoSimplesDireita(t, x->pai);
+                    w = x->pai->esq;
+                }
 
-			if(w->cor == false){
-				w->cor = true;
-				x->pai->cor = false;
-				rotacaoSimplesEsquerda(t, x->pai);
-				w = x->pai->dir;
-			}
+                if ((w->dir == nullptr || w->dir->cor == true) && (w->esq == nullptr || w->esq->cor == true)){
+                    w->cor = false;
+                    x = x->pai;
+                }
 
-			if ((w->esq == nullptr || w->esq->cor == true) && (w->dir == nullptr || w->dir->cor == true)){
-				w->cor = false;
-				x = x->pai;
-			}
+                else if (w->esq == nullptr || w->esq->cor == true){
+                    w->dir->cor = true;
+                    w->cor = false;
+                    rotacaoSimplesEsquerda(t, w);
+                    w = x->pai->esq;
+                }
 
-			else if (w->dir->cor == true){
-				w->dir->cor = true;
-				w->cor = false;
-				rotacaoSimplesDireita(t, w);
-				w = x->pai->esq;
-			}
-
-            if (w->esq != nullptr && w->esq->cor == false){
-                w->cor = x->pai->cor;
-                x->pai->cor = true;
-                w->esq->cor = true;
-                rotacaoSimplesEsquerda(t, x->pai);
-                x = (*t);
-            }
+                if (w->esq != nullptr && w->esq->cor == false){
+                    w->cor = x->pai->cor;
+                    x->pai->cor = true;
+                    w->esq->cor = true;
+                    rotacaoSimplesDireita(t, x->pai);
+                    x = (*t);
+                }
+            }else
+                x = x->pai;
 		}
 	}
 	x->cor = true;
@@ -362,8 +371,7 @@ void deleteFixUp(RBTree **t, RBTree *x){
 
 void removeRBTree(RBTree** root, RBTree **t, RBRecord r){
   	
-  	if (*t == NULL){ 
-  		printf("[ERROR]: RBRecord not found!!!\n");
+  	if (*t == nullptr){ 
     	return;
   	}
 
@@ -371,6 +379,7 @@ void removeRBTree(RBTree** root, RBTree **t, RBRecord r){
   	if (r.key > (*t)->reg.key){ removeRBTree(root, &(*t)->dir, r); return; }
 
   	if ((*root)->dir == nullptr && (*root)->esq == nullptr){
+        cout << "Deletando " << (*root)->reg.key << "\n";
 		delete (*root);
 		(*root) = nullptr;
 		return;
