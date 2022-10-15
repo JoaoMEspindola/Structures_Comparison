@@ -1,5 +1,5 @@
 
-Para acessar a documentação do código, visite o <a href = ... >Wiki</a>
+Para acessar a documentação do código, visite o <a href = "https://github.com/JoaoMEspindola/Structures_Comparison/wiki" >Wiki</a>
 
 # Entrada
 
