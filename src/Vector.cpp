@@ -17,13 +17,12 @@ void printVector(vector <double>* vet){
     }
 }
 
-void searchVector(double value, vector <double>* vet){
-    binary_search((*vet).begin(), (*vet).end(), value);
-    return;
+bool searchVector(double value, vector <double>* vet){
+    return binary_search((*vet).begin(), (*vet).end(), value);
 }
 
 void deleteVector(double value, vector <double>* vet){
-    if (binary_search((*vet).begin(), (*vet).end(), value) == true){
+    if (searchVector(value, vet)){
         (*vet).erase(lower_bound((*vet).begin(), (*vet).end(), value));
     }
     return;

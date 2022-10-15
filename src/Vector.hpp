@@ -7,7 +7,7 @@
 using namespace std;
 
 void insertVector(string file, vector <double>* vet);
-void searchVector(double value, vector <double>* vet);
+bool searchVector(double value, vector <double>* vet);
 void deleteVector(double value, vector <double>* vet);
 void printVector(vector <double>* vet);
 
